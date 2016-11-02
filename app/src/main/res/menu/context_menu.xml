@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_share"
+        android:icon="@drawable/ic_share"
+        android:orderInCategory="300"
+        android:title="share"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_rename"
+        android:icon="@drawable/ic_edit"
+        android:orderInCategory="300"
+        android:title="rename"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_delete"
+        android:icon="@drawable/ic_delete"
+        android:orderInCategory="300"
+        android:title="delete"
+        app:showAsAction="always" />
+
+
+</menu>
