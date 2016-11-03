@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import java.util.List;
 
 public class ActivityPrincipal extends AppCompatActivity {
 
+    private Button btnNovoDocumento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +115,7 @@ public class ActivityPrincipal extends AppCompatActivity {
                 return false;
             }
         });
+
     }
 
     protected void verificarUsuarioLogado(){
@@ -151,4 +154,15 @@ public class ActivityPrincipal extends AppCompatActivity {
 
         return true;
     }
+
+    public void btnNovoDocumentoClicked(View view){
+        irTelaCapturarImagem();
+    }
+
+    protected void irTelaCapturarImagem(){
+        Intent intent = new Intent(this, ActivityCapturarImagem.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
 }
