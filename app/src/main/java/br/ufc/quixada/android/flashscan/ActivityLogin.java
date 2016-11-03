@@ -54,18 +54,17 @@ public class ActivityLogin extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(ActivityLogin.this, "Login sucesso", Toast.LENGTH_SHORT).show();
-
+                irTelaPrincipal();
             }
 
             @Override
             public void onCancel() {
-                // App code
+                Toast.makeText(ActivityLogin.this, R.string.login_cancelado, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(FacebookException exception) {
-                // App code
+                Toast.makeText(ActivityLogin.this, R.string.login_erro, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -74,5 +73,11 @@ public class ActivityLogin extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode,data);
+    }
+
+    protected void irTelaPrincipal(){
+        Intent intent = new Intent(this, ActivityPrincipal.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

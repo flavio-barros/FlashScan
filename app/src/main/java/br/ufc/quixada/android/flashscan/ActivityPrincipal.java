@@ -1,7 +1,9 @@
 package br.ufc.quixada.android.flashscan;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +15,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +30,14 @@ public class ActivityPrincipal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(getApplication());
+
+        verificarUsuarioLogado();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_default);
+        setSupportActionBar(toolbar);
 
         ListView listView = (ListView) findViewById(R.id.listView);
 
@@ -100,4 +115,40 @@ public class ActivityPrincipal extends AppCompatActivity {
         });
     }
 
+    protected void verificarUsuarioLogado(){
+
+        //Usuário não logado
+        if(AccessToken.getCurrentAccessToken() == null){
+            irTelaLogin();
+        }
+
+    }
+
+    protected void irTelaLogin(){
+        Intent intent = new Intent(this, ActivityLogin.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    protected void logout(){
+        LoginManager.getInstance().logOut();
+        irTelaLogin();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.sair){
+            logout();
+        }
+
+        return true;
+    }
 }

@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">FlashScan</string>
     <string name="facebook_app_id">388639848134284</string>
+    <string name="login_cancelado">Login cancelado</string>
+    <string name="login_erro">Ocorreu um erro</string>
 </resources>
