@@ -7,5 +7,5 @@
     <item android:id="@+id/sair"
         android:title="Sair"
         android:orderInCategory="100"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
 </menu>
