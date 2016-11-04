@@ -33,28 +33,12 @@ import java.util.List;
 
 public class ActivityPrincipal extends AppCompatActivity {
 
-Button button;
+    private Button btnNovoDocumento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent sendIntent = new Intent(Intent.ACTION_SEND);
-
-                String title = getResources().getString(R.string.chooser_title);
-                Intent chooser = Intent.createChooser(sendIntent, title);
-
-                if (sendIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(chooser);
-                }
-
-            }
-        });
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(getApplication());
@@ -137,9 +121,10 @@ Button button;
                 Documento documento1 = (Documento) parent.getAdapter().getItem(position);
                 Toast.makeText(ActivityPrincipal.this, documento1.getNome(), Toast.LENGTH_LONG).show();
                 return false;
-                
+
             }
         });
+    }
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -194,4 +179,15 @@ Button button;
 
         return true;
     }
+
+    public void btnNovoDocumentoClicked(View view){
+        irTelaCapturarImagem();
+    }
+
+    protected void irTelaCapturarImagem(){
+        Intent intent = new Intent(this, ActivityCapturarImagem.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
 }
