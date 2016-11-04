@@ -3,6 +3,7 @@
     <string name="facebook_app_id">388639848134284</string>
     <string name="login_cancelado">Login cancelado</string>
     <string name="login_erro">Ocorreu um erro</string>
+    <string name="chooser_title">Abrir com</string>
     <string name="btnVoltar">Voltar</string>
     <string name="btnGerarPdf">Gerar PDF</string>
     <string name="btn_novo_documento">Novo</string>

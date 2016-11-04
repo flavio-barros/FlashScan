@@ -1,9 +1,13 @@
 package br.ufc.quixada.android.flashscan;
 
 import android.content.Intent;
+import android.os.Environment;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,7 +25,10 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 
+import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ActivityPrincipal extends AppCompatActivity {
@@ -41,7 +48,7 @@ public class ActivityPrincipal extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_default);
         setSupportActionBar(toolbar);
 
-        ListView listView = (ListView) findViewById(R.id.listView);
+        final ListView listView = (ListView) findViewById(R.id.listView);
 
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener(){
@@ -98,25 +105,42 @@ public class ActivityPrincipal extends AppCompatActivity {
             }
         });
 
-        final List<String> nomes = new ArrayList<>();
-        nomes.add("Sense 8");
-        nomes.add("WestWorld");
-        nomes.add("Game of Thrones");
-        nomes.add("House of Cards");
+        List<Documento> documentos = new ArrayList<>();
+        final Documento documento = new Documento("/BB/comprovantes/","Comprovante_25-08-2016_222034.pdf", new Date());
+        final Documento documento2 = new Documento("/BB/comprovantes/","Comprovante_09-10-2016_003317.pdf", new Date());
+        documentos.add(documento);
+        documentos.add(documento2);
 
-        final ArrayAdapter<String> nomesApapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nomes);
-        listView.setAdapter(nomesApapter);
+        final ArrayAdapter<Documento> documentoArrayAdapter = new ArrayAdapter<Documento>(this, android.R.layout.simple_list_item_1, documentos);
+        listView.setAdapter(documentoArrayAdapter);
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String series = nomesApapter.getItem(position);
-                Toast.makeText(ActivityPrincipal.this, series.toString(), Toast.LENGTH_LONG).show();
+                Documento documento1 = (Documento) parent.getAdapter().getItem(position);
+                Toast.makeText(ActivityPrincipal.this, documento1.getNome(), Toast.LENGTH_LONG).show();
                 return false;
+
             }
         });
 
-    }
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Documento doc = (Documento) parent.getAdapter().getItem(position);
+                Log.d(ActivityPrincipal.class.getSimpleName(), doc.toString());
+                Intent intent = new Intent(ActivityPrincipal.this, ActivityDocumento.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("Documento", doc);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+}
 
     protected void verificarUsuarioLogado(){
 
