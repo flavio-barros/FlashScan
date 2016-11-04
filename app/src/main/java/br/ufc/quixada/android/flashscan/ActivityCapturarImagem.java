@@ -2,13 +2,21 @@ package br.ufc.quixada.android.flashscan;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Date;
 
 public class ActivityCapturarImagem extends AppCompatActivity {
 
@@ -16,6 +24,7 @@ public class ActivityCapturarImagem extends AppCompatActivity {
     Button btnVoltar;
     Button btnGerarPdf;
     ImageView imgCamera;
+    File imagem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +35,34 @@ public class ActivityCapturarImagem extends AppCompatActivity {
         btnGerarPdf = (Button) findViewById(R.id.btnGerarPdf);
         imgCamera = (ImageView) findViewById(R.id.imgCamera);
 
+        imagem = pegarArquivo();
+
+        Log.d(ActivityCapturarImagem.class.getSimpleName(), imagem.getName());
+
         abrirCamera();
 
     }
 
+    public File pegarArquivo(){
+        File pastaExterna = new File(Environment.getExternalStorageDirectory() +
+                File.separator + "FlashScan" + File.separator + "imagens" + File.separator);
+
+        if(!pastaExterna.exists()){
+            pastaExterna.mkdirs();
+        }
+
+        String nomeArquivo = new Date().toString()+".PNG";
+
+        return new File(pastaExterna, nomeArquivo);
+    }
+
     public void abrirCamera(){
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagem));
+
         startActivityForResult(intent, CAMERA_REQUEST);
     }
 
@@ -48,13 +79,9 @@ public class ActivityCapturarImagem extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(resultCode == RESULT_OK){
-            if(requestCode == CAMERA_REQUEST){
-                Bitmap cameraImage = (Bitmap) data.getExtras().get("data");
-                imgCamera.setImageBitmap(cameraImage);
-            }
+        if (resultCode == RESULT_OK){
+            imgCamera.setImageDrawable(Drawable.createFromPath(imagem.getPath()));
         }
-
     }
 
     public void btnGerarPdfClicked(View view){
