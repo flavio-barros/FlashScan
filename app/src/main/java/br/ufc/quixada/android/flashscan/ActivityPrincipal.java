@@ -124,8 +124,6 @@ public class ActivityPrincipal extends AppCompatActivity {
 
             }
         });
-    }
-
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
@@ -143,6 +141,7 @@ public class ActivityPrincipal extends AppCompatActivity {
             }
         });
 }
+
     protected void verificarUsuarioLogado(){
 
         //Usuário não logado
