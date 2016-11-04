@@ -39,7 +39,7 @@ public class ActivityCapturarImagem extends AppCompatActivity {
         irTelaPrincipal();
     }
 
-    protected void irTelaPrincipal(){
+    public void irTelaPrincipal(){
         Intent intent = new Intent(this, ActivityPrincipal.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
@@ -55,5 +55,15 @@ public class ActivityCapturarImagem extends AppCompatActivity {
             }
         }
 
+    }
+
+    public void btnGerarPdfClicked(View view){
+        irTelaGerarPdf();
+    }
+
+    public void irTelaGerarPdf(){
+        Intent intent = new Intent(this, ActivityGerarPdf.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }
