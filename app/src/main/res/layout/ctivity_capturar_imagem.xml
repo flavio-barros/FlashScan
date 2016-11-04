@@ -31,5 +31,6 @@
         android:text="@string/btnGerarPdf"
         android:id="@+id/btnGerarPdf"
         android:layout_below="@+id/imgCamera"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="btnGerarPdfClicked" />
 </RelativeLayout>
