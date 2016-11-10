@@ -12,7 +12,7 @@
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/txtNomeArquivo"
         android:hint="@string/txt_digite_nome_arquivo"
         android:layout_below="@+id/toolbar_default"
         android:layout_alignParentStart="true"
@@ -22,9 +22,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btn_salvar_pdf"
-        android:id="@+id/button"
+        android:id="@+id/btnSalvarPDF"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/editText"
-        android:layout_alignParentLeft="true" />
+        android:layout_below="@+id/txtNomeArquivo"
+        android:layout_alignParentLeft="true"
+        android:onClick="btnSalvarPDFClicked" />
 
 </RelativeLayout>
