@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import java.io.File;
 import java.util.Date;
 
+import br.ufc.quixada.android.flashscan.util.Constantes;
+
 public class ActivityCapturarImagem extends AppCompatActivity {
 
     public static final int CAMERA_REQUEST = 10;
@@ -38,8 +40,7 @@ public class ActivityCapturarImagem extends AppCompatActivity {
     }
 
     public File pegarArquivo(){
-        File pastaExterna = new File(Environment.getExternalStorageDirectory() +
-                File.separator + "FlashScan" + File.separator + "imagens" + File.separator);
+        File pastaExterna = new File(Constantes.CAMINHO_EXTERNO_IMAGENS);
 
         if(!pastaExterna.exists()){
             pastaExterna.mkdirs();

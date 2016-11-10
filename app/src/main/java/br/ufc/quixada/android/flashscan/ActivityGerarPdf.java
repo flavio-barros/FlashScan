@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Date;
 
+import br.ufc.quixada.android.flashscan.util.Constantes;
+
 public class ActivityGerarPdf extends AppCompatActivity {
 
     String imagem;
@@ -63,9 +65,11 @@ public class ActivityGerarPdf extends AppCompatActivity {
     }
 
     public void gerarPDF(){
+
+
+
         Document document = new Document();
-        File pastaExterna = new File(Environment.getExternalStorageDirectory() +
-                File.separator + "FlashScan" + File.separator + "documentos" + File.separator);
+        File pastaExterna = new File(Constantes.CAMINHO_EXTERNO_DOCUMENTO);
 
         if(!pastaExterna.exists()){
             pastaExterna.mkdirs();
