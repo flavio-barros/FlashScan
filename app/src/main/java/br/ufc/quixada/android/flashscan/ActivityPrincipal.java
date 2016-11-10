@@ -33,7 +33,7 @@ import java.util.List;
 
 public class ActivityPrincipal extends AppCompatActivity {
 
-    private Button btnNovoDocumento;
+    List<Documento> documentos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +105,16 @@ public class ActivityPrincipal extends AppCompatActivity {
             }
         });
 
-        List<Documento> documentos = new ArrayList<>();
+        documentos = new ArrayList<>();
+
+        Intent intent = getIntent();
+        if(intent != null) {
+            if(intent.getExtras() != null){
+                Documento documento = (Documento) intent.getSerializableExtra("documento");
+                documentos.add(documento);
+            }
+        }
+
         final Documento documento = new Documento("/BB/comprovantes/","Comprovante_25-08-2016_222034.pdf", new Date());
         final Documento documento2 = new Documento("/BB/comprovantes/","Comprovante_09-10-2016_003317.pdf", new Date());
         documentos.add(documento);
