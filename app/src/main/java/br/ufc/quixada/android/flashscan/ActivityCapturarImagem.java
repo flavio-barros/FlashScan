@@ -1,21 +1,17 @@
 package br.ufc.quixada.android.flashscan;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.Date;
 
 public class ActivityCapturarImagem extends AppCompatActivity {
@@ -25,6 +21,7 @@ public class ActivityCapturarImagem extends AppCompatActivity {
     Button btnGerarPdf;
     ImageView imgCamera;
     File imagem;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +34,7 @@ public class ActivityCapturarImagem extends AppCompatActivity {
 
         imagem = pegarArquivo();
 
-        Log.d(ActivityCapturarImagem.class.getSimpleName(), imagem.getName());
-
         abrirCamera();
-
     }
 
     public File pegarArquivo(){
@@ -58,11 +52,7 @@ public class ActivityCapturarImagem extends AppCompatActivity {
 
     public void abrirCamera(){
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-
-
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagem));
-
         startActivityForResult(intent, CAMERA_REQUEST);
     }
 
@@ -81,6 +71,8 @@ public class ActivityCapturarImagem extends AppCompatActivity {
 
         if (resultCode == RESULT_OK){
             imgCamera.setImageDrawable(Drawable.createFromPath(imagem.getPath()));
+        }else{
+            irTelaPrincipal();
         }
     }
 
@@ -91,6 +83,7 @@ public class ActivityCapturarImagem extends AppCompatActivity {
     public void irTelaGerarPdf(){
         Intent intent = new Intent(this, ActivityGerarPdf.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("imagem", imagem.getPath());
         startActivity(intent);
     }
 }

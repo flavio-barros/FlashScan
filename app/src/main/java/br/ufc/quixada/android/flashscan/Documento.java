@@ -20,6 +20,10 @@ public class Documento implements Serializable{
         this.dataCriacao = dataCriacao;
     }
 
+    public Documento(){
+
+    }
+
     public String getCaminho() {
         return caminho;
     }

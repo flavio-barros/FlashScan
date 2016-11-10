@@ -43,7 +43,7 @@ public class ActivityDocumento extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +doc.getCaminho()+ doc.getNome());
+                File file = new File(doc.caminho);
                 Intent sendIntent = new Intent(Intent.ACTION_VIEW);
                 sendIntent.setDataAndType(Uri.fromFile(file),"application/pdf");
                 sendIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
