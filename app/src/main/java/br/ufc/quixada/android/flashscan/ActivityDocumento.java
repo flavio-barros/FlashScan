@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import java.io.File;
 
@@ -18,6 +19,7 @@ public class ActivityDocumento extends AppCompatActivity {
     TextView info_doc_nome;
     TextView info_doc_caminho;
     TextView info_doc_data;
+    ToggleButton publico;
 
     Button abrir;
     Button voltar;
@@ -68,5 +70,19 @@ public class ActivityDocumento extends AppCompatActivity {
         });
 
 
+        publico = (ToggleButton) findViewById(R.id.publico);
+
+        publico.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (publico.getText() == publico.getTextOn()) {
+                    doc.setPublico(true);
+                } else {
+                    doc.setPublico(false);
+                }
+
+                Log.d("Status", String.valueOf(doc.getPublico()));
+            }
+        });
     }
 }
