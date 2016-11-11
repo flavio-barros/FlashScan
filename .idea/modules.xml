@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/facebook-android-sdk-4.17.0/facebook-android-sdk-4.17.0.iml" filepath="$PROJECT_DIR$/facebook-android-sdk-4.17.0/facebook-android-sdk-4.17.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/itextg/itextg.iml" filepath="$PROJECT_DIR$/itextg/itextg.iml" />
+      <module fileurl="file://$PROJECT_DIR$/itextg/itextg.iml" filepath="$PROJECT_DIR$/itextg/itextg.iml" />
     </modules>
   </component>
 </project>

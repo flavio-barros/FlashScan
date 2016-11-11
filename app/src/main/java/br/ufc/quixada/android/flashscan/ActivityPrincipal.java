@@ -1,11 +1,10 @@
 package br.ufc.quixada.android.flashscan;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.Environment;
-import android.os.Parcelable;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ActionMode;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -25,8 +23,6 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 
-import java.io.File;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -178,6 +174,7 @@ public class ActivityPrincipal extends AppCompatActivity {
         return true;
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -191,10 +188,6 @@ public class ActivityPrincipal extends AppCompatActivity {
         }
 
         return true;
-    }
-
-    public void btnNovoDocumentoClicked(View view){
-        irTelaCapturarImagem();
     }
 
     protected void irTelaCapturarImagem(){
