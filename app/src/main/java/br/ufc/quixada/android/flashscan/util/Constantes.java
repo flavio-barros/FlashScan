@@ -14,4 +14,6 @@ public class Constantes {
 
     public static final String CAMINHO_EXTERNO_IMAGENS = Environment.getExternalStorageDirectory() +
             File.separator + "FlashScan" + File.separator + "imagens" + File.separator;
+
+    public static final String DOCUMENTO_GERADO = "Docuemtno gerado";
 }

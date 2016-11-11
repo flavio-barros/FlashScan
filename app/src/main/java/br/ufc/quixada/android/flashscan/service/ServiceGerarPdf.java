@@ -4,6 +4,8 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -16,7 +18,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Date;
 
+import br.ufc.quixada.android.flashscan.Documento;
 import br.ufc.quixada.android.flashscan.util.Constantes;
 
 /**
@@ -26,6 +30,7 @@ public class ServiceGerarPdf extends IntentService {
 
     String caminhoImagem;
     String nomeArquivoPdf;
+    String caminhoArquivoPdf;
 
     public ServiceGerarPdf(){
         super(ServiceGerarPdf.class.getName());
@@ -40,6 +45,7 @@ public class ServiceGerarPdf extends IntentService {
     }
 
     public void gerarPDF(){
+
         Document document = new Document();
         File pastaExterna = new File(Constantes.CAMINHO_EXTERNO_DOCUMENTO);
 
@@ -47,8 +53,9 @@ public class ServiceGerarPdf extends IntentService {
             pastaExterna.mkdirs();
         }
 
-        String nomeArquivo = nomeArquivoPdf+".PDF";
+        String nomeArquivo = nomeArquivoPdf;
         File arquivoPdf = new File(pastaExterna, nomeArquivo);
+        caminhoArquivoPdf = arquivoPdf.getPath();
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         Bitmap bitmap = BitmapFactory.decodeFile(caminhoImagem);
@@ -74,5 +81,19 @@ public class ServiceGerarPdf extends IntentService {
             e.printStackTrace();
         }
 
+        enviarBroadcastDocumentoGerado();
+
+    }
+
+    public void enviarBroadcastDocumentoGerado(){
+        Intent intent = new Intent(Constantes.DOCUMENTO_GERADO);
+
+        Documento documento = new Documento();
+        documento.setCaminho(caminhoArquivoPdf);
+        documento.setNome(nomeArquivoPdf);
+        documento.setDataCriacao(new Date());
+
+        intent.putExtra("documento", documento);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 }
