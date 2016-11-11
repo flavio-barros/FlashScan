@@ -29,11 +29,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.ufc.quixada.android.flashscan.util.BancoDeDados;
 import br.ufc.quixada.android.flashscan.util.Constantes;
 
 public class ActivityPrincipal extends AppCompatActivity {
-
-    List<Documento> documentos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,22 +105,7 @@ public class ActivityPrincipal extends AppCompatActivity {
             }
         });
 
-        documentos = new ArrayList<>();
-
-        Intent intent = getIntent();
-        if(intent != null) {
-            if(intent.getExtras() != null){
-                Documento documento = (Documento) intent.getSerializableExtra("documento");
-                documentos.add(documento);
-            }
-        }
-
-        final Documento documento = new Documento("/BB/comprovantes/","Comprovante_25-08-2016_222034.pdf", new Date());
-        final Documento documento2 = new Documento("/BB/comprovantes/","Comprovante_09-10-2016_003317.pdf", new Date());
-        documentos.add(documento);
-        documentos.add(documento2);
-
-        final ArrayAdapter<Documento> documentoArrayAdapter = new ArrayAdapter<Documento>(this, android.R.layout.simple_list_item_1, documentos);
+        final ArrayAdapter<Documento> documentoArrayAdapter = new ArrayAdapter<Documento>(this, android.R.layout.simple_list_item_1, BancoDeDados.documentos);
         listView.setAdapter(documentoArrayAdapter);
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
@@ -157,9 +141,9 @@ public class ActivityPrincipal extends AppCompatActivity {
                 if(intent != null) {
                     if(intent.getExtras() != null){
                         Documento documento = (Documento) intent.getSerializableExtra("documento");
-                        documentos.add(documento);
+                        BancoDeDados.documentos.add(documento);
 
-                        final ArrayAdapter<Documento> documentosAdapter = new ArrayAdapter<Documento>(ActivityPrincipal.this, android.R.layout.simple_list_item_1, documentos);
+                        final ArrayAdapter<Documento> documentosAdapter = new ArrayAdapter<Documento>(ActivityPrincipal.this, android.R.layout.simple_list_item_1, BancoDeDados.documentos);
                         listView.setAdapter(documentosAdapter);
                     }
                 }
