@@ -29,10 +29,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.ufc.quixada.android.flashscan.service.ServiceGetDocumentosCompartilhados;
 import br.ufc.quixada.android.flashscan.util.BancoDeDados;
 import br.ufc.quixada.android.flashscan.util.Constantes;
 
 public class ActivityPrincipal extends AppCompatActivity {
+
+    public static boolean msgRecebida = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,15 +142,21 @@ public class ActivityPrincipal extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if(intent != null) {
-                    if(intent.getExtras() != null){
-                        Documento documento = (Documento) intent.getSerializableExtra("documento");
-                        BancoDeDados.documentos.add(documento);
+                    if (intent.getExtras() != null) {
 
-                        final ArrayAdapter<Documento> documentosAdapter = new ArrayAdapter<Documento>(ActivityPrincipal.this, android.R.layout.simple_list_item_1, BancoDeDados.documentos);
-                        listView.setAdapter(documentosAdapter);
+                        if (true) {
+                            Documento documento = (Documento) intent.getSerializableExtra("documento");
+                            BancoDeDados.documentos.add(documento);
+
+                            final ArrayAdapter<Documento> documentosAdapter = new ArrayAdapter<Documento>(ActivityPrincipal.this, android.R.layout.simple_list_item_1, BancoDeDados.documentos);
+                            listView.setAdapter(documentosAdapter);
+                            Toast.makeText(context, "Documento gerado com sucesso", Toast.LENGTH_SHORT).show();
+                            msgRecebida = false;
+                        }
+
+
                     }
                 }
-                Toast.makeText(context, "Documento gerado com sucesso", Toast.LENGTH_SHORT).show();
             }
         };
 
@@ -193,6 +202,10 @@ public class ActivityPrincipal extends AppCompatActivity {
             irTelaCapturarImagem();
         }
 
+        if(id == R.id.documentos_compartilhados){
+            irTelaDocumentosCompartilhados();
+        }
+
         return true;
     }
 
@@ -202,6 +215,16 @@ public class ActivityPrincipal extends AppCompatActivity {
 
     protected void irTelaCapturarImagem(){
         Intent intent = new Intent(this, ActivityCapturarImagem.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    protected void irTelaDocumentosCompartilhados(){
+        Log.d("Principal", "Startando serviço");
+        Intent intentService = new Intent(this, ServiceGetDocumentosCompartilhados.class);
+        startService(intentService);
+
+        Intent intent = new Intent(this, ActivityDocumentosCompartilhados.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

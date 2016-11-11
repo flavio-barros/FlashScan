@@ -20,24 +20,30 @@
         <activity android:name=".ActivityPrincipal">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivityLogin"></activity>
+        <activity android:name=".ActivityLogin" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".ActivityDocumento"></activity>
+        <activity android:name=".ActivityDocumento" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
         <activity android:name=".ActivityCapturarImagem" />
-        <activity android:name=".ActivityGerarPdf"></activity>
-        <service android:name=".service.ServiceGerarPdf"></service>
+        <activity android:name=".ActivityGerarPdf" />
+
+        <service android:name=".service.ServiceGerarPdf" />
+        <service android:name=".service.ServiceGetDocumentosCompartilhados" />
+
+        <activity android:name=".ActivityDocumentosCompartilhados"></activity>
+
     </application>
 
 </manifest>

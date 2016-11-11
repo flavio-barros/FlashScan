@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.ufc.quixada.android.flashscan.ActivityDocumentosCompartilhados">
+
+    <include
+        android:id="@+id/toolbar_default"
+        layout="@layout/toolbar"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="273dp"
+        android:id="@+id/list_documentos_compartilhados"
+        android:choiceMode="singleChoice"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Voltar"
+        android:id="@+id/btn_voltar"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="54dp"
+        android:onClick="btnVoltarClicked" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Documentos compartilhados"
+        android:id="@+id/txt_documentos_compartilhados"
+        android:layout_below="@+id/toolbar_default"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

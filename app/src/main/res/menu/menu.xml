@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ActivityPrincipal">
 
+    <item android:id="@+id/documentos_compartilhados"
+        android:title="Documentos compartilhados"
+        android:orderInCategory="90"
+        app:showAsAction="never" />
+
     <item android:id="@+id/sair"
         android:title="Sair"
         android:orderInCategory="100"

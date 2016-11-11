@@ -16,4 +16,6 @@ public class Constantes {
             File.separator + "FlashScan" + File.separator + "imagens" + File.separator;
 
     public static final String DOCUMENTO_GERADO = "Docuemtno gerado";
+
+    public static final String RECUPERAR_DOCUMENTOS_COMPARTILHADOS = "recuperar documentos compartilhados";
 }
