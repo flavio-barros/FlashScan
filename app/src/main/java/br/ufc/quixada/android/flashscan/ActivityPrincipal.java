@@ -1,11 +1,12 @@
 package br.ufc.quixada.android.flashscan;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
-import android.os.Environment;
-import android.os.Parcelable;
+import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ActionMode;
@@ -16,7 +17,6 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -25,11 +25,11 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 
-import java.io.File;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import br.ufc.quixada.android.flashscan.util.Constantes;
 
 public class ActivityPrincipal extends AppCompatActivity {
 
@@ -150,6 +150,25 @@ public class ActivityPrincipal extends AppCompatActivity {
 
             }
         });
+
+        BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if(intent != null) {
+                    if(intent.getExtras() != null){
+                        Documento documento = (Documento) intent.getSerializableExtra("documento");
+                        documentos.add(documento);
+
+                        final ArrayAdapter<Documento> documentosAdapter = new ArrayAdapter<Documento>(ActivityPrincipal.this, android.R.layout.simple_list_item_1, documentos);
+                        listView.setAdapter(documentosAdapter);
+                    }
+                }
+                Toast.makeText(context, "Documento gerado com sucesso", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                mMessageReceiver, new IntentFilter(Constantes.DOCUMENTO_GERADO));
 }
 
     protected void verificarUsuarioLogado(){

@@ -30,7 +30,6 @@
             android:value="@string/facebook_app_id" />
 
         <activity android:name=".ActivityDocumento"></activity>
-        <activity android:name=".ActivityLogin" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -38,6 +37,7 @@
 
         <activity android:name=".ActivityCapturarImagem" />
         <activity android:name=".ActivityGerarPdf"></activity>
+        <service android:name=".service.ServiceGerarPdf"></service>
     </application>
 
 </manifest>
