@@ -2,6 +2,8 @@
 <resources>
     <color name="colorPrimary">#ea150e</color>
     <color name="colorPrimaryDark">#ea150e</color>
-    <color name="colorAccent">#FFFFFF</color>
-    <color name="color_action_mode_bg">#000000</color>
+    <color name="colorAccent">#000000</color>
+    <color name="color_action_mode_bg">#cccccc</color>
+    <color name="white">#ffffff</color>
+
 </resources>

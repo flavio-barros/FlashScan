@@ -2,10 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ActivityPrincipal" >
+    tools:context=".ActivityPrincipal">
 
     <item android:id="@+id/sair"
         android:title="Sair"
         android:orderInCategory="100"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/criar"
+        android:icon="@drawable/ic_camera_enhance"
+        android:orderInCategory="300"
+        android:title="Criar"
+        app:showAsAction="always" />
+
 </menu>

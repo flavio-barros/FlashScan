@@ -13,11 +13,13 @@ public class Documento implements Serializable{
     String caminho;
     String nome;
     Date dataCriacao;
+    boolean publico;
 
     public Documento(String caminho, String nome, Date dataCriacao) {
         this.caminho = caminho;
         this.nome = nome;
         this.dataCriacao = dataCriacao;
+        this.publico = publico;
     }
 
     public Documento(){
@@ -46,6 +48,14 @@ public class Documento implements Serializable{
 
     public void setDataCriacao(Date dataCriacao) {
         this.dataCriacao = dataCriacao;
+    }
+
+    public boolean getPublico() {
+        return publico;
+    }
+
+    public void setPublico(boolean publico) {
+        this.publico = publico;
     }
 
     @Override
