@@ -24,9 +24,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/info_doc_nome"
-        android:layout_marginTop="91dp"
+        android:layout_marginTop="66dp"
         android:layout_below="@+id/detalhes"
-        android:layout_alignStart="@+id/detalhes" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,9 +34,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/info_doc_caminho"
+        android:layout_marginTop="100dp"
         android:layout_below="@+id/info_doc_nome"
-        android:layout_alignStart="@+id/info_doc_nome"
-        android:layout_marginTop="64dp" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,16 +44,17 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/info_doc_data"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/detalhes" />
+        android:layout_below="@+id/info_doc_caminho"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="100dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Abrir"
         android:id="@+id/abrir"
-        android:layout_alignTop="@+id/voltar"
-        android:layout_toEndOf="@+id/voltar" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -62,5 +63,16 @@
         android:id="@+id/voltar"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Publico"
+        android:id="@+id/publico"
+        android:checked="true"
+        android:textOn="Público"
+        android:textOff="Privado"
+        android:layout_above="@+id/abrir"
+        android:layout_alignStart="@+id/abrir" />
 
 </RelativeLayout>

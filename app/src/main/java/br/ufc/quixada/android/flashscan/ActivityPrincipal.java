@@ -47,6 +47,7 @@ public class ActivityPrincipal extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_default);
         setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
         final ListView listView = (ListView) findViewById(R.id.listView);
 
@@ -183,6 +184,10 @@ public class ActivityPrincipal extends AppCompatActivity {
 
         if(id == R.id.sair){
             logout();
+        }
+
+        if (id == R.id.criar) {
+            irTelaCapturarImagem();
         }
 
         return true;
