@@ -22,6 +22,10 @@ public class Documento implements Serializable{
         this.publico = publico;
     }
 
+    public Documento(){
+
+    }
+
     public String getCaminho() {
         return caminho;
     }
