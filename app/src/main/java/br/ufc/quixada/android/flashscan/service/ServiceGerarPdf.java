@@ -67,7 +67,7 @@ public class ServiceGerarPdf extends IntentService {
             Image image = Image.getInstance (stream.toByteArray());
             image.setAlignment(Image.MIDDLE);
             image.setBorder(Image.BOX);
-            image.setBorderWidth(15);
+            image.setBorderWidth(0);
             document.add(image);
             document.close();
 
