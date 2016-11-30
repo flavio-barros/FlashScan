@@ -1,9 +1,9 @@
 package br.ufc.quixada.android.flashscan;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +25,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,7 +34,8 @@ import br.ufc.quixada.android.flashscan.util.Constantes;
 
 public class ActivityPrincipal extends AppCompatActivity {
 
-    List<Documento> documentos;
+    public List<Documento> documentos;
+    public Documento d;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +47,16 @@ public class ActivityPrincipal extends AppCompatActivity {
 
         verificarUsuarioLogado();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_default);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_default);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
         final ListView listView = (ListView) findViewById(R.id.listView);
 
+        listView.setLongClickable(true);
+        listView.setClickable(true);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener(){
-
 
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -68,7 +71,7 @@ public class ActivityPrincipal extends AppCompatActivity {
                 menu.findItem(R.id.menu_rename).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
                 menu.findItem(R.id.menu_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
                 menu.findItem(R.id.menu_delete).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-                return false;
+                return true;
             }
 
             @Override
@@ -80,7 +83,7 @@ public class ActivityPrincipal extends AppCompatActivity {
                         mode.finish(); // Action picked, so close the CAB
                         return true;
                     case R.id.menu_share:
-                       // shareSelectedItems();
+                        shareSelectedItems(d.getCaminho());
                         mode.finish();
                         return true;
                     case R.id.menu_rename:
@@ -90,6 +93,17 @@ public class ActivityPrincipal extends AppCompatActivity {
                     default:
                         return false;
                 }
+            }
+
+            private void shareSelectedItems(String caminho) {
+                File file = new File(caminho);
+                Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                sendIntent.setDataAndType(Uri.fromFile(file), "application/pdf");
+                sendIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+                String title = getResources().getString(R.string.chooser_title_share);
+                Intent chooser = Intent.createChooser(sendIntent, title);
+                startActivity(chooser);
             }
 
             private void deleteSelectedItems() {
@@ -116,24 +130,13 @@ public class ActivityPrincipal extends AppCompatActivity {
             }
         }
 
-        final Documento documento = new Documento("/BB/comprovantes/","Comprovante_25-08-2016_222034.pdf", new Date());
-        final Documento documento2 = new Documento("/BB/comprovantes/","Comprovante_09-10-2016_003317.pdf", new Date());
+        final Documento documento = new Documento("/BB/comprovantes/", "Comprovante_25-08-2016_222034.pdf", new Date());
+        final Documento documento2 = new Documento("/BB/comprovantes/", "Comprovante_09-10-2016_003317.pdf", new Date());
         documentos.add(documento);
         documentos.add(documento2);
 
-        final ArrayAdapter<Documento> documentoArrayAdapter = new ArrayAdapter<Documento>(this, android.R.layout.simple_list_item_1, documentos);
+        ArrayAdapter<Documento> documentoArrayAdapter = new ArrayAdapter<Documento>(this, android.R.layout.simple_list_item_1, documentos);
         listView.setAdapter(documentoArrayAdapter);
-
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
-
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Documento documento1 = (Documento) parent.getAdapter().getItem(position);
-                Toast.makeText(ActivityPrincipal.this, documento1.getNome(), Toast.LENGTH_LONG).show();
-                return false;
-
-            }
-        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
@@ -141,7 +144,6 @@ public class ActivityPrincipal extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Documento doc = (Documento) parent.getAdapter().getItem(position);
-                Log.d(ActivityPrincipal.class.getSimpleName(), doc.toString());
                 Intent intent = new Intent(ActivityPrincipal.this, ActivityDocumento.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("Documento", doc);
@@ -150,6 +152,19 @@ public class ActivityPrincipal extends AppCompatActivity {
 
             }
         });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("Caminho", "que boooooooooooooooooooooooosta");
+                Documento d = (Documento) parent.getAdapter().getItem(position);
+                Log.d("Caminho", d.getCaminho());
+                Toast.makeText(ActivityPrincipal.this, d.getNome(), Toast.LENGTH_SHORT).show();
+                return true;
+
+            }
+        });
+
 
         BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
             @Override
@@ -210,10 +225,6 @@ public class ActivityPrincipal extends AppCompatActivity {
         }
 
         return true;
-    }
-
-    public void btnNovoDocumentoClicked(View view){
-        irTelaCapturarImagem();
     }
 
     protected void irTelaCapturarImagem(){

@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.ufc.quixada.android.flashscan.ActivityPrincipal">
+    tools:context="br.ufc.quixada.android.flashscan.ActivityPrincipal"
+    android:descendantFocusability="blocksDescendants">
 
     <LinearLayout
         android:orientation="vertical"
@@ -37,7 +38,10 @@
             android:layout_width="match_parent"
             android:layout_height="273dp"
             android:id="@+id/listView"
-            android:choiceMode="singleChoice" />
+            android:choiceMode="singleChoice"
+            android:longClickable="true"
+            android:clickable="true"
+            android:contextClickable="true" />
 
     </LinearLayout>
 </RelativeLayout>

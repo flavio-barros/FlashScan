@@ -4,10 +4,12 @@
     <string name="login_cancelado">Login cancelado</string>
     <string name="login_erro">Ocorreu um erro</string>
     <string name="chooser_title">Abrir com</string>
+    <string name="chooser_title_share">Compartilhar</string>
     <string name="btnVoltar">Voltar</string>
     <string name="btnGerarPdf">Gerar PDF</string>
     <string name="btn_novo_documento">Novo</string>
     <string name="txt_nome_arquivo">Nome do arquivo</string>
     <string name="btn_salvar_pdf">Salvar PDF</string>
     <string name="txt_digite_nome_arquivo">Digite o nome do arquivo</string>
+    <string name="caminho">caminho</string>
 </resources>
