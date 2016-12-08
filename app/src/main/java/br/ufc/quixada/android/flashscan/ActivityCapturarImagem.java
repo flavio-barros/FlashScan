@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -71,6 +72,7 @@ public class ActivityCapturarImagem extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (resultCode == RESULT_OK){
+            Log.d(ActivityCapturarImagem.class.toString(), "GET IMAGE");
             imgCamera.setImageDrawable(Drawable.createFromPath(imagem.getPath()));
         }else{
             irTelaPrincipal();

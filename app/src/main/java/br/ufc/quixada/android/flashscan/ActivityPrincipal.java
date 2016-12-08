@@ -25,10 +25,6 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import br.ufc.quixada.android.flashscan.service.ServiceGetDocumentosCompartilhados;
 import br.ufc.quixada.android.flashscan.util.BancoDeDados;
 import br.ufc.quixada.android.flashscan.util.Constantes;

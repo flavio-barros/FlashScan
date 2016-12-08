@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
@@ -18,6 +19,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+
 import java.util.Date;
 
 import br.ufc.quixada.android.flashscan.Documento;
@@ -31,15 +33,23 @@ public class ServiceGerarPdf extends IntentService {
     String caminhoImagem;
     String nomeArquivoPdf;
     String caminhoArquivoPdf;
+    double latitude;
+    double longitude;
 
-    public ServiceGerarPdf(){
+    public ServiceGerarPdf() {
         super(ServiceGerarPdf.class.getName());
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
+
         caminhoImagem = intent.getExtras().getString("caminhoImagem");
         nomeArquivoPdf = intent.getExtras().getString("nomeArquivoPdf");
+        latitude = intent.getExtras().getDouble("latitude");
+        longitude = intent.getExtras().getDouble("longitude");
+
+        Log.d("TESTE", String.valueOf(latitude));
+        Log.d("TESTE", String.valueOf(longitude));
 
         gerarPDF();
     }
@@ -82,7 +92,6 @@ public class ServiceGerarPdf extends IntentService {
         }
 
         enviarBroadcastDocumentoGerado();
-
     }
 
     public void enviarBroadcastDocumentoGerado(){
@@ -92,6 +101,8 @@ public class ServiceGerarPdf extends IntentService {
         documento.setCaminho(caminhoArquivoPdf);
         documento.setNome(nomeArquivoPdf);
         documento.setDataCriacao(new Date());
+        documento.setLatitude(latitude);
+        documento.setLongitude(longitude);
 
         intent.putExtra("documento", documento);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);

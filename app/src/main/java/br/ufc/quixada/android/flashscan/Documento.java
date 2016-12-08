@@ -14,6 +14,8 @@ public class Documento implements Serializable{
     String nome;
     Date dataCriacao;
     boolean publico;
+    double latitude;
+    double longitude;
 
     public Documento(String caminho, String nome, Date dataCriacao) {
         this.caminho = caminho;
@@ -56,6 +58,22 @@ public class Documento implements Serializable{
 
     public void setPublico(boolean publico) {
         this.publico = publico;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     @Override

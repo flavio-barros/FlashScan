@@ -23,13 +23,14 @@ public class ActivityDocumento extends AppCompatActivity {
 
     Button abrir;
     Button voltar;
+    Button mapa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_documento);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         doc = (Documento) intent.getSerializableExtra("Documento");
         Log.d(ActivityDocumento.class.getSimpleName(), doc.toString());
         info_doc_nome = (TextView) findViewById(R.id.info_doc_nome);
@@ -69,6 +70,18 @@ public class ActivityDocumento extends AppCompatActivity {
             }
         });
 
+        mapa = (Button) findViewById(R.id.btnMapa);
+        mapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(ActivityDocumento.this, MapsActivity.class);
+                intent1.putExtra("latitude", doc.getLatitude());
+                intent1.putExtra("longitude", doc.getLongitude());
+                intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent1);
+                finish();
+            }
+        });
 
         publico = (ToggleButton) findViewById(R.id.publico);
 
